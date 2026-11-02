@@ -531,12 +531,7 @@ export function renderPreview(
           );
         }
       });
-      svg.insertBefore(
-        group,
-        svg.querySelector(
-          ":scope > .sequence-activation, :scope > .state-db, :scope > .state-file, :scope > .state-sql, :scope > .sequence-arrow, :scope > .sequence-process-group",
-        ),
-      );
+      svg.append(group);
     }
     scroller.append(svg);
     const columnTooltip = document.createElement("div");

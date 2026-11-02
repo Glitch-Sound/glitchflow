@@ -523,13 +523,13 @@ export function layoutSequence(
     )
       continue;
     const preceding = basic[index - 1];
-    const followsOwnResponse =
+    const followsOwnOutgoingMessage =
       event.kind === "activation" &&
       event.action === "end" &&
       preceding?.kind === "message" &&
-      preceding.mode === "response" &&
+      (preceding.mode === "response" || preceding.mode === "async") &&
       preceding.from === event.objectId;
-    const eventY = followsOwnResponse
+    const eventY = followsOwnOutgoingMessage
       ? lastY
       : lastY +
         (event.kind === "activation"

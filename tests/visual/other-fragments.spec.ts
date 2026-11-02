@@ -81,7 +81,9 @@ test("REQ-019 / REQ-019-S01: parの右枠が処理カードと重ならない", 
   expect(geometry.frameRight - geometry.cardRight).toBeGreaterThanOrEqual(12);
 });
 
-test("opt 枠を通過する活性が途切れず、幅が 10px になる", async ({ page }) => {
+test("opt 枠を通過する活性が途切れず、枠を最前面に幅 10px で描く", async ({
+  page,
+}) => {
   await page.goto(process.env.GLITCHFLOW_PREVIEW_URL ?? "/");
   const document = parseGlf(
     'Object FE as "FE" type APP\nFE+\nopt test:\n    FE: aaa\nFE-',
@@ -112,7 +114,7 @@ test("opt 枠を通過する活性が途切れず、幅が 10px になる", asyn
       return (
         bar !== null &&
         (element.compareDocumentPosition(bar) &
-          Node.DOCUMENT_POSITION_FOLLOWING) !==
+          Node.DOCUMENT_POSITION_PRECEDING) !==
           0
       );
     }),

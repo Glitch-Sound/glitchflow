@@ -34,6 +34,18 @@ describe("layoutSequence", () => {
     expect(layout.activations[0].startY).toBe(layout.messages[0].y);
   });
 
+  it("活性の終了を応答と非同期メッセージの高さにそろえる", () => {
+    for (const message of ["BE --> FE: 応答", "BE -> FE: 通知"]) {
+      const layout = layoutSequence(
+        parseGlf(
+          `Object FE as "FE" type APP\nObject BE as "BE" type API\nBE+\n${message}\nBE-`,
+        ),
+        measure,
+      );
+      expect(layout.activations[0].endY).toBe(layout.messages[0].y);
+    }
+  });
+
   it("REQ-008 / REQ-008-S02: 未宣言の参照を配置せず既知の処理を残す", () => {
     const document = parseGlf(
       'Object FE as "FE" type APP\nFE ->> X: call\nFE: work',
